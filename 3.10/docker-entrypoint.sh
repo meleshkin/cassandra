@@ -60,4 +60,7 @@ if [ "$1" = 'cassandra' ]; then
 	done
 fi
 
-exec "$@"
+cassandra -R;
+sleep 10;
+/opt/newts/bin/init /opt/newts/etc/config.yaml;
+/opt/newts/bin/newts -c /opt/newts/etc/config.yaml;

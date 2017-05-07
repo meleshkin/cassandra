@@ -60,6 +60,9 @@ ENV CASSANDRA_CONFIG /etc/cassandra
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
+COPY newts /opt/newts
+RUN chmod 777 /opt/newts/bin/init
+RUN chmod 777 /opt/newts/bin/newts
 
 RUN mkdir -p /var/lib/cassandra "$CASSANDRA_CONFIG" \
 	&& chown -R cassandra:cassandra /var/lib/cassandra "$CASSANDRA_CONFIG" \
@@ -71,5 +74,5 @@ VOLUME /var/lib/cassandra
 # 7199: JMX
 # 9042: CQL
 # 9160: thrift service
-EXPOSE 7000 7001 7199 9042 9160
-CMD ["cassandra", "-f"]
+# 18080 newts
+EXPOSE 7000 7001 7199 9042 9160 18080
